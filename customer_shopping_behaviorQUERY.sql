@@ -12,6 +12,7 @@ group by gender;
 
 
 --Q2. Which customers used a discount but still spent more than the average purchase amount? 
+
 select customer_id, purchase_amount
 from customer
 where discount_applied = 'Yes' and purchase_amount >= (select AVG(purchase_amount) from customer)
@@ -64,7 +65,7 @@ CASE
     END AS customer_segment
 FROM customer 
 )
-select customer_segment, count(*) AS "Number of Customers" 
+select customer_segment as "Customer Segment", count(*) AS "Number of Customers" 
 from cus_type
 group by customer_segment;
 
@@ -79,7 +80,7 @@ Row_number() over(partition by category order by count(customer_id) desc ) as "i
 from customer
 group by category, item_purchased
 )
-select item_rank, category, item_purchased, total_orders
+select item_rank as "Rank", category as "Category", item_purchased as "Item Purchased", total_orders as "Total Orders"
 from itemcounts
 where item_rank<= 3;
 
